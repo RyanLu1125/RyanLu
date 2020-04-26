@@ -1,5 +1,7 @@
 package tw.gameshop.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,20 +10,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import tw.gameshop.user.model.EventService;
+import tw.gameshop.user.model.Game_EventService;
 import tw.gameshop.user.model.Game_Event;
 
 @Controller
 public class EventController {
 
-	private EventService eventService;
+	private Game_EventService eventService;
 	
 	
 	
 
 	@Autowired
-	public EventController(EventService eventService) {
+	public EventController(Game_EventService eventService) {
 		this.eventService = eventService;
 	}
 	
@@ -61,12 +64,22 @@ public class EventController {
 	@ResponseBody
 	public String queryAllData(Model model) {
 		String eventJSON = eventService.queryAllEvent();
+		
 		model.addAttribute("Event",eventJSON);
-		System.out.println(eventJSON);
+//		System.out.println(eventJSON);
 		return "test1";
 	}
 	
 	
+//	@ResponseBody
+//	@RequestMapping(path = "/queryAll",method = RequestMethod.POST)
+//	public  ModelAndView queryAllData2() {
+//		ModelAndView modelAndView = new ModelAndView();
+//	    List<Game_Event> queryAll = eventService.queryAllEvent2();
+//	    modelAndView.addObject("AllEventList",queryAll);
+//	    modelAndView.setViewName("/data/datalist");
+//		return modelAndView;
+//	}
 
 
 }

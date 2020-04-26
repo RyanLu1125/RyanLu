@@ -14,22 +14,23 @@ import org.springframework.stereotype.Repository;
 
 import com.google.gson.Gson;
 
-@Repository("eventDao")
-public class EventDAO {
+@Repository("game_EventDao")
+public class Game_EventDAO {
 
 	private SessionFactory sessionFactory;
 
-	public EventDAO() {
+	public Game_EventDAO() {
 	}
 
 	@Autowired
-	public EventDAO(@Qualifier(value ="sessionFactory") SessionFactory sessionFactory) {
+	public Game_EventDAO(@Qualifier(value ="sessionFactory") SessionFactory sessionFactory) {
 		System.out.println("SessionFactory: " + sessionFactory);
 		this.sessionFactory = sessionFactory;
 
 	}
 
 	public String queryAllEvent() {
+
 		Session session = sessionFactory.getCurrentSession();
 		Query<Game_Event> query = session.createQuery("from Game_Event", Game_Event.class);
 		List<Game_Event> list = query.list();
@@ -53,10 +54,17 @@ public class EventDAO {
 		return json;
 	}
 	
+	
+	public List<Game_Event> queryAllEvent2(){
+		return sessionFactory.getCurrentSession().createQuery("from Game_Event",Game_Event.class).list();
+	}
+	
 	public Game_Event queryEvent(int eventId) {
 		return  sessionFactory.getCurrentSession().get(Game_Event.class,eventId);	
 	}
 
+	
+	
 	public Game_Event addEvent(int productId, String startDate, String eventName, String content,
 			String endDate) {
 		Session session = sessionFactory.getCurrentSession();

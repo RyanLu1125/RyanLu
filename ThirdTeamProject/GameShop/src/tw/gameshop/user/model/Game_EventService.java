@@ -9,20 +9,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class EventService {
+public class Game_EventService {
 
 	@Autowired
-	private EventDAO eventDao;
+	private Game_EventDAO eventDao;
 
-	public EventService() {
+	public Game_EventService() {
 	}
 
-	public EventService(EventDAO eventDao) {
+	public Game_EventService(Game_EventDAO eventDao) {
 		this.eventDao = eventDao;
 	}
 
 	public String queryAllEvent() {
 		return eventDao.queryAllEvent();
+	}
+	
+	public List<Game_Event> queryAllEvent2(){
+		return eventDao.queryAllEvent2();
 	}
 	
 	public Game_Event queryEvent(int eventId) {

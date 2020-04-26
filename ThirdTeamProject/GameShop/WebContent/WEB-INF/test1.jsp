@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -41,14 +42,21 @@
 			<table id="t1">
 				<input type="text" id="se1" placeholder="請輸入想搜尋的活動名稱">
 				<button id="search">查詢</button>
-				<input type="button" id="queryall" class="queryall" value="所有活動1">
-				<button class="queryall1">所有活動2</button>
+				<input type="button" id="queryall" class="queryall" value="查詢所有活動">								
 			</table>
-		
+			<table id="t2">
+			<tr>
+				<td>test <td>
+				<td>${Event}</td>
+			</tr>
+			</table>
+	
 		</div>
 	</div>
 	
 	<script type="text/javascript">
+
+	console.log($('#t2'))
 
 	$(document).on("click","#queryall",function() {
 			$.ajax({
@@ -57,6 +65,7 @@
 					type : "POST",
 					success : function(response) {
 						console.log(response);
+						var event = $[Event];
 						var txt = "<tr><th>活動編號<th>產品編號<th>活動照片<th>活動名稱<th>活動內文<th>開始日期<th>結束日期<th colspan='2'>設定";
 						for (let i = 0; i < response.length; i++) {
 							txt += "<tr><td>"+ response[i].eventId;
@@ -74,20 +83,7 @@
 				});
 	})
 	</script>
-	<script type="text/javascript">
-	 $(".queryall1").click(function(){
-         $.ajax({
-             url:"queryAllEvent",
-             type:"POST",
-             dataType:"json",
-             success:function(data){
-                 console.log(data);
-                 $(".message").append(data);
-             }
-         })
-     })
 
-	</script>
 </body>
 
 </html>
