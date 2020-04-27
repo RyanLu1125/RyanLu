@@ -234,9 +234,11 @@
 	                for (let i = 0; i < data.length; i++) {
 
 		                txt += '<tr><td>' + "<img src='data:image/jpeg;base64," + data[i].productImage + "' width='230px'>" + 
-	                    '</td><td class="pName" id="'+data[i].productId +'">' + data[i].productName + '</td><td>' + data[i].tag + '</td><td>' + data[i].price + 
-	                    '</td><td>' + "<a href='searchGame?productName="+data[i].productName+"'><input type='button' value='遊戲資訊'></a>  <input class='wish' type='button' value='加入願望清單'>  <input class='cart' type='button' value='加入購物車'>" +
-	                    '</td></tr>';
+	                    	   '</td><td class="pName" id="'+data[i].productId +'">' + data[i].productName + 
+	                    	   '</td><td>' + data[i].tag + 
+	                    	   '</td><td>' + data[i].price + 
+	                           '</td><td>' + "<a href='searchGame?productName="+data[i].productName+"'><input type='button' value='遊戲資訊'></a>  <input class='wish' type='button' value='加入願望清單'>  <input class='cart' type='button' value='加入購物車'>" +
+	                           '</td></tr>';
 	                }
 	                txt + ' ';
 	                $("#content").append(txt);

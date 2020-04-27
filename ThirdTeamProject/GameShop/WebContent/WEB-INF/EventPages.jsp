@@ -42,10 +42,11 @@
 			<table>
 				<input type="text" id="se1" placeholder="請輸入想搜尋的活動編號">
 				<button id="search">查詢</button>
-				<input type="button" id="queryall" class="queryall" value="查詢所有活動">
+				<button id="queryall">查詢所有活動</button>
+				
 											
 			</table>
-			<table id="t1">
+			<table id="t1" >
 			</table>		
 		</div>
 	</div>
@@ -55,7 +56,7 @@
 	
 
 	
-
+	<!--ShowAllEvent-->
 	$(document).on("click","#queryall",function() {
 		console.log('QueryAll:1');
 			$.ajax({
@@ -67,15 +68,16 @@
 						console.log('QueryAll:2');
 						var txt = "<tr><th>活動編號<th>產品編號<th>活動照片<th>活動名稱<th>活動內文<th>開始日期<th>結束日期<th colspan='2'>設定";
 						for (let i = 0; i < response.length; i++) {
-							txt += "<tr><td>"+ response[i].eventId;
+							var id = response[i].eventId;
+							txt += "<tr><td id='" +id+ "' class='eventId'>"+ response[i].eventId;
 							txt += "<td>"+ response[i].productId;					
 							txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "'>"						
 							txt += "<td>"+ response[i].eventName;
 							txt += "<td>"+ response[i].content;
 							txt += "<td>"+ response[i].startDate;
 							txt += "<td>"+ response[i].endDate;
-							txt += '<td><input type="button" id="update" value="修改">';
-							txt += '<td><input type="button" id="delete" value="刪除">';
+							txt += '<td><button   class="update" name="update1" >修改</button>';
+							txt += '<td><button   class="delete" name="delete1" onclick="deleteEvent()">刪除</button>';							
 							console.log('QueryAll:3');
 						}
 						$('#t1').html(txt);
@@ -84,19 +86,13 @@
 				});
 	})
 	
+	<!--deleteEvent-->
+	function deleteEvent(){
+		var name = $(".delete").siblings("td.delete").attr('name');
+		window.alert("測試:"+name);
+		}
+
 	
-	$(document).on("click","#delete",function() {
-		console.log('delete:1');
-			$.ajax({
-					url : "deleteEvent",					
-					dataType : "json",
-					type : "POST",					
-					success : function(response) {
-						console.log('deleteResopnse',response);
-						console.log('delete:2');															
-					}
-				});
-	})
 	</script>
 
 </body>
