@@ -1,5 +1,6 @@
 package tw.gameshop.user.model;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -33,13 +34,8 @@ public class Game_EventService {
 		return eventDao.queryEvent(eventId);
 	}
 
-	public Game_Event addEvent( int productId, String startDate, String eventName, String content,
-			String endDate) {
-		return eventDao.addEvent( productId, startDate, eventName, content, endDate);
-	}
-	
-	public Game_Event addEvent2(Game_Event event) {
-		return eventDao.addEvent2(event);
+	public Game_Event addEvent(Game_Event event) {
+		return eventDao.addEvent(event);
 	}
 	
 	public void deleteEvent(int eventId) {

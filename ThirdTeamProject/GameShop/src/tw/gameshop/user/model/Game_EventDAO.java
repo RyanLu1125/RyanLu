@@ -1,5 +1,6 @@
 package tw.gameshop.user.model;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -62,33 +63,9 @@ public class Game_EventDAO {
 	public Game_Event queryEvent(int eventId) {
 		return  sessionFactory.getCurrentSession().get(Game_Event.class,eventId);	
 	}
-
 	
-	
-	public Game_Event addEvent(int productId, String startDate, String eventName, String content,
-			String endDate) {
-		Session session = sessionFactory.getCurrentSession();
-		Game_Event event;
-		try {
 
-			event = new Game_Event();
-			event.setProductId(productId);
-			event.setEventName(eventName);
-			event.setContent(content);
-			event.setStartDate(startDate);
-			event.setEndDate(endDate);		
-			session.save(event);
-			return event;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-	}
-
-
-	public Game_Event addEvent2(Game_Event event) {
+	public Game_Event addEvent(Game_Event event) {
 		Session session = sessionFactory.getCurrentSession();	
 		if(event != null ) {
 			session.save(event);
