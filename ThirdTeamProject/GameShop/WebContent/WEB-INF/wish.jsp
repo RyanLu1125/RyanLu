@@ -13,9 +13,7 @@
 <c:forEach var="wish" items="${wish}"> 
 <tr>
 <td id="${wish.productId}">${wish.productName}</td>
-<td>
-<input class="delete" type="button" value="delete">
-</td>
+<td><input class="delete" type="button" value="delete"></td>
 </tr>
 </c:forEach>
 </table>

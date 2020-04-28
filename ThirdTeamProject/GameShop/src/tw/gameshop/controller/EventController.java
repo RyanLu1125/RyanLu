@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.jdt.internal.compiler.util.Sorting;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -40,11 +41,9 @@ public class EventController {
 	}
 	
 	@RequestMapping(path = "/addEvent",method = RequestMethod.POST)
-	@ResponseBody
 	public String addEvent(@RequestParam("productId")int productId,@RequestParam("startDate")String startDate, 
 			@RequestParam("eventName")String eventName,@RequestParam("content")String content,
-			@RequestParam("endDate")String endDate,@RequestParam("eventImage")MultipartFile eventImage)  {
-				
+			@RequestParam("endDate")String endDate,@RequestParam("eventImage")MultipartFile eventImage)  {				
 		try {
 			if(eventService.queryAllEvent()!= null) {
 				Game_Event event = new Game_Event();							
@@ -56,7 +55,7 @@ public class EventController {
 				event.setEventImage(eventImage.getBytes());
 				eventService.addEvent(event);
 			}
-				return "Success";
+				System.out.println("add Data Success!");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}	
@@ -67,22 +66,32 @@ public class EventController {
 	@ResponseBody
 	@RequestMapping(path = "/queryAllEvent",method = RequestMethod.GET )
 	public List<Game_Event> queryAllData(Model model) {
-		String eventJSON = eventService.queryAllEvent();
 		List<Game_Event> eventList = eventService.queryAllEvent2();
-//		model.addAttribute("GameEvent",eventJSON);
-//		model.addAttribute("GameEvent2",eventList);
-//    	System.out.println(eventJSON);
-//    	System.out.println(eventList);
 		System.out.println("start controller");
 		return eventList;
 	}
 	
 	
+	@ResponseBody
 	@RequestMapping(path = "/deleteEvent",method = RequestMethod.POST)
-	public void deleteEvent() {
+	public String deleteEvent(int eventId) {
 		
+		try {
+			eventService.deleteEvent(eventId);
+			Game_Event q1 = eventService.queryEvent(eventId);
+			if(q1 == null) {
+				System.out.println("data delete success!");
+			}else {
+				System.out.println("data delete false!");
+			}			
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("Error:event_controller");
+		}
+		return "ok";		
 	}
 
+	
 
 
 }

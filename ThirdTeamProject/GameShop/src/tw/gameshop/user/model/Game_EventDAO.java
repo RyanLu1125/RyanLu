@@ -76,7 +76,7 @@ public class Game_EventDAO {
 
 	public void deleteEvent(int eventId) {
 		Session session = sessionFactory.getCurrentSession();
-		Game_Event event = (Game_Event) session.get("from Event", eventId);
+		Game_Event event = (Game_Event) session.get(Game_Event.class, eventId);
 		session.delete(event);
 	}
 
