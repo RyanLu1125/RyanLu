@@ -7,10 +7,16 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/18.0.0/classic/ckeditor.js"></script>
 <meta charset="UTF-8">
 <title>Event</title>
+  
 </head>
 
 <body>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+
 		<div>
 		<h2>新增活動</h2>
 		<form action="addEvent" method="post" enctype="multipart/form-data" >
@@ -41,21 +47,27 @@
 				</tr>				
 			</table>		
 		</form>
+		</div>
 		
 		<div>
 			<table>
 				<input type="text" id="se1" placeholder="請輸入想搜尋的活動編號">
-				<button id="search">查詢</button>
-				
-				<button id="queryall">查詢所有活動</button>
-				
-											
+				<button id="search">查詢</button>			
+				<button id="queryall">查詢所有活動</button>										
 			</table>
-			
-			<table id="t1" >
+			<table id="queryAllEvent" > 
 			</table>		
 		</div>
-	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	<script type="text/javascript">
 
@@ -92,7 +104,7 @@
 							txt += '<td><input type="button" id="delete" value="刪除" >';												
 							//console.log('QueryAll:3');
 						}
-						$('#t1').html(txt);
+						$('#queryAllEvent').html(txt);
 						
 						//console.log('QueryAll:4');
 					}

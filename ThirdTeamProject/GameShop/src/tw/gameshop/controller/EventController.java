@@ -40,6 +40,11 @@ public class EventController {
 		return "EventPages";
 	}
 	
+	@RequestMapping(path = "/processTabs",method = RequestMethod.GET)
+	public String goTestTabs() {
+		return "TestTabs";
+	}
+	
 	@RequestMapping(path = "/addEvent",method = RequestMethod.POST)
 	public String addEvent(@RequestParam("productId")int productId,@RequestParam("startDate")String startDate, 
 			@RequestParam("eventName")String eventName,@RequestParam("content")String content,
@@ -59,7 +64,7 @@ public class EventController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}	
-		return "EventPages";
+		return "TestTabs";
 	}
 	
 	
@@ -92,6 +97,13 @@ public class EventController {
 	}
 
 	
-
+	@RequestMapping(path = "/queryEvent",method = RequestMethod.GET)
+	@ResponseBody
+	public Game_Event queryData(int eventId) {
+		Game_Event event = eventService.queryEvent(eventId);
+		
+		return event;
+		
+	}
 
 }
