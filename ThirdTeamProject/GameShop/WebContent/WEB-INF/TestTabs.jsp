@@ -91,15 +91,13 @@ a.tabs-menu.tabs-menu-active {
 				<form action="addEvent" method="post" enctype="multipart/form-data">
 					<table>
 						<tr>
-							<td>活動起始時間 : <input type="date" id="startDate"
-								name="startDate"></td>
+							<td>活動起始時間 : <input type="date" id="startDate"	name="startDate"></td>
 						</tr>
 						<tr>
 							<td>活動結束時間 : <input type="date" id="endDate" name="endDate"></td>
 						</tr>
 						<tr>
-							<td>活動圖檔 : <input type="file" id="imageUpload"
-								name="eventImage" multiple="multiple" accept=".png, .jpg, .jpeg" />
+							<td>活動圖檔 : <input type="file" id="imageUpload"	name="eventImage" multiple="multiple" accept=".png, .jpg, .jpeg" />
 							</td>
 						</tr>
 						<tr>
@@ -153,16 +151,40 @@ a.tabs-menu.tabs-menu-active {
 								</div>
 
 								<!-- Modal body -->
-								<div class="modal-body">Modal body..</div>
-
-
-
-
-
-
+								<div class="modal-body">Modal body..
+								
+								<form action="updateEvent" method="post" enctype="multipart/form-data" >
+									<table id="updateEvent">
+										<tr>
+											<td>活動起始時間 : <input type="date" id="startDate" name="startDate1"></td>
+										</tr>
+										<tr>
+											<td>活動結束時間 : <input type="date" id="endDate" name="endDate1"></td>
+										</tr>
+										<tr>
+											<td>活動圖檔 : <input type="file" id="imageUpload" name="eventImage1" multiple="multiple" accept=".png, .jpg, .jpeg"/><img  name="eventImage2" alt="" src="">	</td>
+										</tr>
+										<tr>
+											<td>產品編號 <input type="text" name="productId1"></td>
+										</tr>
+										<tr>
+											<td>活動標題 : <input type="text" name="eventName1"></td>
+										</tr>
+										<tr>
+											<td>活動內文 : <input type="text" name="content1"></td>
+										</tr>	
+									<!-- <tr>
+											<td>活動內文 : <div id="editor" name="content"></div></td>
+										</tr> --> 
+														
+									</table>		
+								</form>
+								
+																												
+								</div>
 								<!-- Modal footer -->
 								<div class="modal-footer">
-									<button type="button" class="btn btn-success"data-dismiss="modal">OK</button>
+									<button type="submit" class="btn btn-success"data-dismiss="modal">OK</button>
 									<button type="button" class="btn btn-danger"data-dismiss="modal">Close</button>
 								</div>
 							</div>
@@ -194,14 +216,9 @@ a.tabs-menu.tabs-menu-active {
 		//      } );
 
 		//ShowAllEvent
-		$(document)
-				.on(
-						"click",
-						"#queryall",
-						function() {
+		$(document).on("click","#queryall",function() {
 							console.log('QueryAll:1');
-							$
-									.ajax({
+							$.ajax({
 										url : "queryAllEvent",
 										dataType : "json",
 										type : "GET",
@@ -212,19 +229,13 @@ a.tabs-menu.tabs-menu-active {
 											var txt = "<tr><th>活動編號<th>產品編號<th>活動照片<th>活動名稱<th>活動內文<th>開始日期<th>結束日期<th colspan='2'>設定";
 											for (let i = 0; i < response.length; i++) {
 												var id = response[i].eventId;
-												txt += "<tr><td>"
-														+ response[i].eventId;
-												txt += "<td>"
-														+ response[i].productId;
+												txt += "<tr><td>"+ response[i].eventId;
+												txt += "<td>"+ response[i].productId;
 												txt += "<td><img src='data:image/jpeg;base64," + response[i].eventImage + "'>"
-												txt += "<td>"
-														+ response[i].eventName;
-												txt += "<td>"
-														+ response[i].content;
-												txt += "<td>"
-														+ response[i].startDate;
-												txt += "<td>"
-														+ response[i].endDate;
+												txt += "<td>"+ response[i].eventName;
+												txt += "<td>"+ response[i].content;
+												txt += "<td>"+ response[i].startDate;
+												txt += "<td>"+ response[i].endDate;
 												txt += '<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="updateData">修改</button>';
 												
 												txt += '<td><button type="button" class="btn btn-danger" id="delete">刪除</button>';
@@ -244,7 +255,7 @@ a.tabs-menu.tabs-menu-active {
 
 		//deleteEvent
 		$(document).on('click', '#delete', function() {
-			var checkstr = confirm("確定是否刪除?");
+			var checkstr = confirm("確定是否刪除該活動?");
 			if (checkstr == true) {
 				var $tr = $(this).parents("tr");
 				var eventId = $tr.find("td").eq(0).text(); //抓取id值
@@ -281,7 +292,14 @@ a.tabs-menu.tabs-menu-active {
 					data : {eventId : eventId},
 
 					success : function(response) {
-						console.log(response);										 
+						console.log(response);	
+						$('input[name="startDate1"]').val(response.startDate);
+						$('input[name="endDate1"]').val(response.endDate);								
+						$('input[name="productId1"]').val(response.productId);
+						$('input[name="eventName1"]').val(response.eventName);	
+						$('input[name="content1"]').val(response.content);	
+						$('img[name="eventImage2"]').attr("src","data:image/jpeg;base64,"+response.eventImage+"");
+												 
 					},
 
 				});		
