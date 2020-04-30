@@ -1,6 +1,7 @@
 package tw.gameshop.controller;
 
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -64,7 +65,7 @@ public class EventController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}	
-		return "TestTabs";
+		return "redirect:/processTabs";
 	}
 	
 	
@@ -72,7 +73,7 @@ public class EventController {
 	@RequestMapping(path = "/queryAllEvent",method = RequestMethod.GET )
 	public List<Game_Event> queryAllData(Model model) {
 		List<Game_Event> eventList = eventService.queryAllEvent2();
-		System.out.println("start controller");
+		System.out.println("start queryAllEvent controller");
 		return eventList;
 	}
 	
@@ -110,10 +111,20 @@ public class EventController {
 	@RequestMapping(path = "/updateEvent",method = RequestMethod.POST)
 	public String updateEvent(@RequestParam("productId1")int productId,@RequestParam("startDate1")String startDate, 
 			@RequestParam("eventName1")String eventName,@RequestParam("content1")String content,
-			@RequestParam("endDate1")String endDate,@RequestParam("eventImage1")MultipartFile eventImage)  {				
+			@RequestParam("endDate1")String endDate,@RequestParam("eventImage1")MultipartFile eventImage,@RequestParam("eventId1")int eventId) throws IOException  {				
 		
-		System.out.println("Success!");
+		System.out.println("updateEvent_ControllerStart");
+		//System.out.println(eventImage);
+		System.out.println(eventId);
 		
+		Game_Event gEvent = new Game_Event();
+		gEvent.setStartDate(startDate);
+		gEvent.setEndDate(endDate);
+		gEvent.setProductId(productId);
+		gEvent.setContent(content);
+		gEvent.setEventName(eventName);
+		gEvent.setEventImage(eventImage.getBytes());
+		eventService.upDateEvent(eventId, gEvent);
 		
 		return "TestTabs";
 	}
